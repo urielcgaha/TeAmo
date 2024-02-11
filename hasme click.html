@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quieres ser mi San Valentin?</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-image: url('fondo2.jpg'); /* Reemplaza 'fondo2.jpg' con la ruta correcta de tu imagen */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #e60000; /* Ajusta el color del texto a rojo */
+            padding: 20px; /* Añade espacio alrededor del contenido */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        h1 {
+            color: #fff; /* Ajusta el color del título a blanco */
+        }
+        #siButton {
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Verde */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        #noButton {
+            padding: 10px 20px;
+            background-color: #e60000; /* Rojo */
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        #mensajeAgradecimiento {
+            display: none;
+            color: #e60000; /* Ajusta el color del mensaje a rojo */
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Quieres ser mi San Valentin?</h1>
+
+    <!-- Agrega la etiqueta audio para reproducir música -->
+    <audio controls loop>
+        <source src="Ladyfingers.mp3" type="audio/mp3"> <!-- Reemplaza 'Ladyfingers.mp3' con la ruta correcta de tu canción -->
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <button onclick="respuesta('si')" id="siButton">Si</button>
+    <button onclick="moverNoButton()" id="noButton">No</button>
+
+    <div id="mensajeAgradecimiento"></div>
+
+    <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js@1.0.6/confetti.min.js"></script>
+    <script>
+        var tamanoBotonSi = 20; // Tamaño inicial del botón "Si"
+        var tamanoBotonNo = 20; // Tamaño inicial del botón "No"
+
+        function respuesta(opcion) {
+            if (opcion === 'si') {
+                document.getElementById('siButton').style.display = 'none'; // Oculta el botón "Si"
+                document.getElementById('noButton').style.display = 'none'; // Oculta el botón "No"
+                
+                var mensajeAgradecimiento = document.getElementById('mensajeAgradecimiento');
+                mensajeAgradecimiento.style.display = 'block'; // Muestra el mensaje
+                mensajeAgradecimiento.innerHTML = 'Gracias por aceptar, mi estrellita Te amo muchisimo. Eres una persona maravillosa, gracias por ser mi san valentin.';
+
+                // Agrega el efecto de confeti
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 }
+                });
+            } else if (opcion === 'no') {
+                moverNoButton(); // Llama a la función moverNoButton para cambiar la posición del botón "No"
+                incrementarTamanoSiButton(); // Llama a la función incrementarTamanoSiButton para aumentar el tamaño del botón "Si"
+            }
+        }
+
+        function moverNoButton() {
+            var noButton = document.getElementById('noButton');
+            var nuevaPosicionX = Math.floor(Math.random() * (window.innerWidth - 2 * tamanoBotonNo));
+            var nuevaPosicionY = Math.floor(Math.random() * (window.innerHeight - 2 * tamanoBotonNo));
+
+            noButton.style.position = 'absolute';
+            noButton.style.left = nuevaPosicionX + 'px';
+            noButton.style.top = nuevaPosicionY + 'px';
+
+            tamanoBotonNo += 2; // Incrementa el tamaño del botón "No" en 0 unidades
+            noButton.style.padding = '10px ' + tamanoBotonNo + 'px';
+        }
+
+        function incrementarTamanoSiButton() {
+            tamanoBotonSi += 2; // Incrementa el tamaño del botón "Si" en 5 unidades
+            document.getElementById('siButton').style.padding = '10px ' + tamanoBotonSi + 'px';
+        }
+    </script>
+
+</body>
+</html>
+
